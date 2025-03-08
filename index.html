@@ -13,12 +13,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* Base and smooth scrolling */
+    /* Smooth scrolling and base resets */
     html { scroll-behavior: smooth; }
     html, body { margin: 0; padding: 0; }
     * { box-sizing: border-box; }
     
-    /* Define Colors */
+    /* Color Definitions and Font Setup */
     :root {
       --primary-color: #003366;      /* Dark blue for headings and accents */
       --accent-color: #00509e;       /* Lighter accent for hover effects */
@@ -28,7 +28,6 @@
       --transition: all 0.3s ease;
     }
     
-    /* Set overall body background and font */
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--body-bg);
@@ -43,13 +42,13 @@
       min-height: 100vh;
     }
     
-    /* Global heading styles */
+    /* Global heading styles (Bold, Dark Blue) */
     h1, h2, h3, h4 {
       color: var(--primary-color);
       font-weight: bold;
     }
     
-    /* Header - white background with dark blue text */
+    /* Header: White background with dark blue text */
     header {
       background-color: var(--background-color);
       color: var(--primary-color);
@@ -100,12 +99,12 @@
       transition: var(--transition);
     }
     
-    /* Section styling */
+    /* Sections styling */
     section {
       padding: 50px 0;
       scroll-snap-align: start;
-      margin-top: 10px; /* clears fixed header */
-      scroll-margin-top: 80px; /* ensures section tops aren't hidden */
+      margin-top: 10px;
+      scroll-margin-top: 80px; /* Adjust to match your fixed header height */
       background-color: var(--background-color);
     }
     section.page-section:not(:first-of-type) {
@@ -275,7 +274,7 @@
     }
     .links .links-container a:hover { background-color: var(--accent-color); }
     
-    /* Footer (visible only when scrolled near bottom) */
+    /* Footer: Simple white background with dark blue text */
     footer {
       background-color: var(--background-color);
       color: var(--primary-color);
@@ -349,7 +348,7 @@
     .modal-content h2 { margin-bottom: 15px; }
     .modal-content p { font-size: 0.95rem; margin-bottom: 10px; line-height: 1.5; }
     
-    /* Contact Form Enhancements */
+    /* Enhanced Contact Form */
     .modal-content input,
     .modal-content textarea {
       width: 100%;
@@ -399,6 +398,7 @@
         <a href="#hero">Pharaoh</a>
       </div>
       <ul class="nav-links">
+        <!-- Home always shows full-page view -->
         <li><a href="#hero" class="nav-link">Home</a></li>
         <li><a href="#about" class="nav-link">About Me</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
@@ -610,7 +610,7 @@
     </section>
   </main>
 
-  <!-- Footer (visible only when user scrolls near the bottom) -->
+  <!-- Footer (Visible only when scrolled near the bottom) -->
   <footer>
     <p>&copy; <span id="year"></span> Pharaoh Kipkirui Chirchir. All rights reserved.</p>
     <div class="social-links">
@@ -677,21 +677,28 @@
     // Flag for full-page view (all sections visible)
     let fullPageView = true;
     
-    // Functions to show all sections (full page) or only one section
+    // Show all sections (full-page view)
     function showAllSections() {
       document.querySelectorAll('section.page-section').forEach(sec => sec.style.display = 'block');
       fullPageView = true;
       checkFooterVisibility();
+      // Scroll to top of hero section
+      document.querySelector('#hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    
+    // Show only the target section and scroll it to the top of the viewport
     function showOnlySection(target) {
       document.querySelectorAll('section.page-section').forEach(sec => sec.style.display = 'none');
       const targetSection = document.querySelector(target);
-      if (targetSection) targetSection.style.display = 'block';
+      if (targetSection) {
+        targetSection.style.display = 'block';
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       fullPageView = false;
       checkFooterVisibility();
     }
     
-    // Nav link click handler – Home always shows full page view
+    // Navigation click handler – Home always shows full page view
     document.querySelectorAll('nav a.nav-link').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -706,7 +713,7 @@
       });
     });
     
-    // Update nav link highlighting based on scroll position (only in full-page view)
+    // Update nav link highlight based on scroll (only in full-page view)
     window.addEventListener('scroll', () => {
       if(fullPageView) {
         const sections = document.querySelectorAll('section.page-section');
