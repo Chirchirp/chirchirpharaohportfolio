@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <!-- Mobile Optimization Meta Tags -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="theme-color" content="#003366" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="description" content="Professional Portfolio of Pharaoh Kipkirui Chirchir" />
@@ -13,7 +16,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* Smooth scrolling and base resets */
+    /* Smooth scrolling and resets */
     html { scroll-behavior: smooth; }
     html, body { margin: 0; padding: 0; }
     * { box-sizing: border-box; }
@@ -34,11 +37,12 @@
       line-height: 1.6;
     }
     
-    /* Main Content Container with Scroll-Snap */
+    /* Main Content Container with Scroll-Snap and momentum scrolling */
     .main-content {
       scroll-snap-type: y mandatory;
       overflow-y: auto;
       min-height: 100vh;
+      -webkit-overflow-scrolling: touch;
     }
     
     /* Global Headings: Bold, Dark Blue */
@@ -100,7 +104,7 @@
       transition: var(--transition);
     }
     
-    /* Sections Styling (with scroll-margin-top for fixed header) */
+    /* Sections Styling (with scroll-margin-top so the top is visible) */
     section {
       padding: 50px 0;
       scroll-snap-align: start;
@@ -156,8 +160,8 @@
     .hero .education {
       flex: 1;
       text-align: left;
-      min-width: 300px;
       margin: 10px;
+      min-width: 300px; /* Ensure education text fits in one line */
     }
     .hero .education h3 { font-size: 1.5rem; margin-bottom: 10px; }
     
@@ -273,7 +277,7 @@
     }
     .links .links-container a:hover { background-color: var(--accent-color); }
     
-    /* Contact Modal (Pop-Up) */
+    /* Contact Modal (Pop-Up Contact Form) */
     .modal {
       display: none;
       position: fixed;
@@ -407,7 +411,7 @@
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
         <li><a href="#links" class="nav-link">Quick Links</a></li>
-        <!-- Change Contact link to trigger pop-up modal -->
+        <!-- Contact link now triggers pop-up modal -->
         <li><a href="#" id="contact-link" class="nav-link">Contact</a></li>
       </ul>
       <div class="hamburger">
@@ -616,7 +620,7 @@
     </section>
   </main>
   
-  <!-- Footer (visible when scrolled near bottom) -->
+  <!-- Footer (Visible when scrolled near bottom) -->
   <footer>
     <p>&copy; <span id="year"></span> Pharaoh Kipkirui Chirchir. All rights reserved.</p>
     <div class="social-links">
@@ -634,7 +638,7 @@
     <i class="fas fa-chevron-up"></i>
   </div>
   
-  <!-- Contact Modal (Pop-Up Contact Form) -->
+  <!-- Contact Modal (Pop-Up) -->
   <div id="contact-modal" class="modal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
