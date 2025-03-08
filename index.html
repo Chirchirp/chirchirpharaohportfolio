@@ -85,6 +85,8 @@
     }
     .nav-links a.active { border-bottom: 2px solid var(--accent-color); }
     .nav-links a:hover { color: var(--accent-color); }
+    /* Change Contact link to trigger modal */
+    .nav-links a#contact-link { cursor: pointer; }
     .hamburger {
       display: none;
       flex-direction: column;
@@ -98,7 +100,7 @@
       transition: var(--transition);
     }
     
-    /* Sections Styling (with scroll-margin for fixed header) */
+    /* Sections Styling (with scroll-margin-top for fixed header) */
     section {
       padding: 50px 0;
       scroll-snap-align: start;
@@ -117,11 +119,11 @@
       text-align: center;
     }
     
-    /* Hero Section (Home) with a container for alignment */
+    /* Hero Section (Home) with container for proper alignment */
     .hero {
       background-color: var(--background-color);
       color: var(--primary-color);
-      padding: 80px 20px;
+      padding: 80px 20px 50px;
     }
     .hero .container {
       display: flex;
@@ -154,11 +156,12 @@
     .hero .education {
       flex: 1;
       text-align: left;
+      min-width: 250px;
       margin: 10px;
     }
     .hero .education h3 { font-size: 1.5rem; margin-bottom: 10px; }
     
-    /* Container for inner sections */
+    /* General container for inner sections */
     .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
     
     /* About Section */
@@ -270,21 +273,45 @@
     }
     .links .links-container a:hover { background-color: var(--accent-color); }
     
-    /* Contact Section */
-    .contact {
-      padding: 50px 20px;
-      background-color: var(--background-color);
-      scroll-snap-align: start;
-      scroll-margin-top: 80px;
+    /* Contact Modal (Pop-Up) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
     }
-    .contact .container { max-width: 600px; }
-    .contact form label {
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .modal-close:hover { color: var(--accent-color); }
+    .modal-content h2 { margin-bottom: 15px; }
+    .modal-content p { font-size: 0.95rem; margin-bottom: 10px; line-height: 1.5; }
+    .modal-content form label {
       display: block;
       margin-top: 10px;
       font-weight: bold;
     }
-    .contact form input,
-    .contact form textarea {
+    .modal-content form input,
+    .modal-content form textarea {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -292,7 +319,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    .contact form button {
+    .modal-content form button {
       background-color: var(--primary-color);
       color: #fff;
       border: none;
@@ -301,7 +328,7 @@
       cursor: pointer;
       transition: var(--transition);
     }
-    .contact form button:hover { background-color: var(--accent-color); }
+    .modal-content form button:hover { background-color: var(--accent-color); }
     
     /* Footer: Simple white background with dark blue text */
     footer {
@@ -344,39 +371,6 @@
     }
     .back-to-top:hover { background-color: var(--accent-color); }
     
-    /* Modal Styles for Terms & Privacy */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 600px;
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      color: var(--primary-color);
-      font-size: 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .modal-close:hover { color: var(--accent-color); }
-    .modal-content h2 { margin-bottom: 15px; }
-    .modal-content p { font-size: 0.95rem; margin-bottom: 10px; line-height: 1.5; }
-    
     @media (max-width: 768px) {
       header nav { flex-direction: column; }
       .nav-links {
@@ -413,7 +407,8 @@
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
         <li><a href="#links" class="nav-link">Quick Links</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <!-- Change Contact link to trigger pop-up modal -->
+        <li><a href="#" id="contact-link" class="nav-link">Contact</a></li>
       </ul>
       <div class="hamburger">
         <span></span>
@@ -422,7 +417,7 @@
       </div>
     </nav>
   </header>
-
+  
   <!-- Main Content Wrapper -->
   <main class="main-content">
     <!-- Home (Hero) Section -->
@@ -619,25 +614,9 @@
         <a href="https://www.linkedin.com/in/pharaoh-chirchir-m-sc-0b600b138/details/certifications/" target="_blank">Certifications</a>
       </div>
     </section>
-    
-    <!-- Contact Section -->
-    <section class="contact page-section" id="contact">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <form action="https://formspree.io/f/yourformid" method="POST">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required />
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
-    </section>
   </main>
   
-  <!-- Footer (Visible only when scrolled near bottom) -->
+  <!-- Footer (visible when scrolled near bottom) -->
   <footer>
     <p>&copy; <span id="year"></span> Pharaoh Kipkirui Chirchir. All rights reserved.</p>
     <div class="social-links">
@@ -653,6 +632,23 @@
   
   <div class="back-to-top" id="back-to-top">
     <i class="fas fa-chevron-up"></i>
+  </div>
+  
+  <!-- Contact Modal (Pop-Up Contact Form) -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Contact</h2>
+      <form action="https://formspree.io/f/yourformid" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
   </div>
   
   <!-- Terms & Privacy Modals -->
@@ -738,7 +734,7 @@
       checkFooterVisibility();
     });
     
-    // Check if user is near the bottom of the main content to display footer
+    // Check footer visibility (display only when near the bottom)
     function checkFooterVisibility() {
       const mainContent = document.querySelector('.main-content');
       const footer = document.querySelector('footer');
@@ -764,7 +760,9 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Modal event listeners for Terms & Privacy
+    // Modal event listeners for Contact, Terms, and Privacy
+    const contactButton = document.getElementById('contact-link');
+    const contactModal = document.getElementById('contact-modal');
     const termsLink = document.getElementById('terms-link');
     const privacyLink = document.getElementById('privacy-link');
     const termsModal = document.getElementById('terms-modal');
@@ -776,6 +774,10 @@
     });
     window.addEventListener('click', e => {
       if(e.target.classList.contains('modal')) e.target.style.display = 'none';
+    });
+    contactButton.addEventListener('click', e => {
+      e.preventDefault();
+      contactModal.style.display = 'block';
     });
     termsLink.addEventListener('click', e => {
       e.preventDefault();
