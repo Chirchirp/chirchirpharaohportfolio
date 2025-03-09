@@ -18,7 +18,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     /* Base resets & smooth scrolling */
-    html { scroll-behavior: smooth; }
+    html { 
+      scroll-behavior: smooth; 
+      scroll-padding-top: 80px; /* Adjust for fixed header */
+    }
     body, html { margin: 0; padding: 0; }
     *, *::before, *::after { box-sizing: border-box; }
     
@@ -31,6 +34,7 @@
       --transition: all 0.3s ease;
       --section-padding: 30px;
       --container-max: 1000px;
+      --header-height: 60px;
       --scroll-offset: 80px;
     }
     
@@ -50,6 +54,7 @@
       top: 0;
       left: 0;
       right: 0;
+      height: var(--header-height);
       z-index: 1000;
       border-bottom: 1px solid #ddd;
     }
@@ -98,13 +103,29 @@
       transition: var(--transition);
     }
     
+    /* Mobile Navigation */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        width: 100%;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      header nav { flex-direction: column; }
+      .hamburger { display: flex; }
+      .nav-links a { font-size: 1.1rem; padding: 10px 15px; }
+    }
+    
     /* Main Content */
-    .main-content { margin-top: 60px; }
+    .main-content { margin-top: var(--header-height); }
     section {
       padding: var(--section-padding) 20px;
       background: var(--background-color);
       margin-bottom: 23px;
-      scroll-margin-top: var(--scroll-offset);
     }
     .container {
       max-width: var(--container-max);
@@ -117,7 +138,7 @@
       color: var(--primary-color);
     }
     
-    /* Hero Section - Updated Layout */
+    /* Hero Section */
     .hero {
       display: flex;
       flex-wrap: wrap;
@@ -127,7 +148,6 @@
       margin: 0 auto;
       max-width: var(--container-max);
     }
-    /* Ensure equal distribution for all hero children */
     .hero > * {
       flex: 1 1 300px;
       text-align: center;
@@ -135,14 +155,13 @@
     }
     .profile-photo {
       max-width: 150px;
-      width: 150px; /* Ensure a fixed width */
-      height: 150px; /* Ensure a fixed height */
+      width: 150px;
+      height: 150px;
       margin-top: 20px;
-      overflow: hidden; /* Prevents overflow if image is larger */
-      border-radius: 50%; /* Ensures circular shape */
+      overflow: hidden;
+      border-radius: 50%;
     }
-
-   .profile-photo img {
+    .profile-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -304,15 +323,6 @@
       display: none;
     }
     .back-to-top:hover { background: var(--accent-color); }
-    
-    @media (max-width: 768px) {
-      header nav { flex-direction: column; }
-      .nav-links { flex-direction: column; gap: 10px; margin-top: 10px; }
-      .hamburger { display: flex; }
-      .hero { flex-direction: column; }
-      .about-details { flex-direction: column; }
-      .nav-links a { font-size: 1.1rem; padding: 10px 15px; }
-    }
     
     /* Modal Styles */
     .modal { 
@@ -558,7 +568,7 @@
     <i class="fas fa-chevron-up"></i>
   </div>
   
-  <!-- Modified Contact Modal -->
+  <!-- Contact Modal -->
   <div id="contact-modal" class="modal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
@@ -582,7 +592,7 @@
   </div>
   
   <!-- Terms Modal -->
-  <div id="terms-modal" class="modal" style="display: none;">
+  <div id="terms-modal" class="modal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
       <h2>Terms and Conditions</h2>
@@ -591,7 +601,7 @@
   </div>
   
   <!-- Privacy Modal -->
-  <div id="privacy-modal" class="modal" style="display: none;">
+  <div id="privacy-modal" class="modal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
       <h2>Privacy Policy</h2>
@@ -604,6 +614,11 @@
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+    
+    // Close mobile nav when a link is clicked (improves UX)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
     
     // Back-to-top functionality
     const backToTop = document.getElementById('back-to-top');
