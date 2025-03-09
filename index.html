@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Mobile Optimization Meta Tags -->
+  <!-- Mobile Optimization -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="MobileOptimized" content="320" />
   <meta name="theme-color" content="#003366" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="description" content="Professional Portfolio of Pharaoh Kipkirui Chirchir" />
   <title>Pharaoh Kipkirui Chirchir - Data Analyst Portfolio</title>
   <link rel="icon" href="favicon.ico" />
@@ -16,50 +15,38 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* Smooth scrolling and base resets */
+    /* Base resets & smooth scrolling */
     html { scroll-behavior: smooth; }
-    html, body { margin: 0; padding: 0; }
-    * { box-sizing: border-box; }
+    body, html { margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
     
-    /* Color Definitions & Font Setup */
     :root {
-      --primary-color: #003366;  /* Dark blue for headings & accents */
-      --accent-color: #00509e;   /* Lighter accent for hover effects */
-      --background-color: #ffffff; /* White background for sections */
-      --body-bg: #f9f9f9;        /* Overall page background */
+      --primary-color: #003366;
+      --accent-color: #00509e;
+      --background-color: #ffffff;
+      --body-bg: #f9f9f9;
       --text-color: #343a40;
       --transition: all 0.3s ease;
+      --section-padding: 30px;
+      --container-max: 1000px;
     }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--body-bg);
+      background: var(--body-bg);
       color: var(--text-color);
-      line-height: 1.6;
+      line-height: 1.5;
     }
     
-    /* Main Content Container with Scroll-Snap and momentum scrolling */
-    .main-content {
-      scroll-snap-type: y mandatory;
-      overflow-y: auto;
-      min-height: 100vh;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    /* Global Headings: Bold, Dark Blue */
-    h1, h2, h3, h4 {
-      color: var(--primary-color);
-      font-weight: bold;
-    }
-    
-    /* Header: Pinned with full width */
+    /* Header */
     header {
-      background-color: var(--background-color);
+      background: var(--background-color);
       color: var(--primary-color);
-      padding: 10px 0;
+      padding: 10px 20px;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       z-index: 1000;
       border-bottom: 1px solid #ddd;
     }
@@ -67,9 +54,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
+      max-width: var(--container-max);
       margin: 0 auto;
-      padding: 0 20px;
     }
     .logo a {
       color: var(--primary-color);
@@ -80,18 +66,20 @@
     .nav-links {
       list-style: none;
       display: flex;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
     }
-    .nav-links li { margin: 0 15px; }
     .nav-links a {
       color: var(--primary-color);
       text-decoration: none;
       font-weight: 500;
       transition: var(--transition);
     }
-    .nav-links a.active { border-bottom: 2px solid var(--accent-color); }
-    .nav-links a:hover { color: var(--accent-color); }
-    /* Contact link triggers modal */
-    .nav-links a#contact-link { cursor: pointer; }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent-color);
+      border-bottom: 2px solid var(--accent-color);
+    }
     .hamburger {
       display: none;
       flex-direction: column;
@@ -105,313 +93,249 @@
       transition: var(--transition);
     }
     
-    /* Sections (with scroll-margin-top for fixed header) */
+    /* Main Content */
+    .main-content { margin-top: 60px; }
     section {
-      padding: 50px 0;
-      scroll-snap-align: start;
-      margin-top: 10px;
-      scroll-margin-top: 80px;
-      background-color: var(--background-color);
+      padding: var(--section-padding) 20px;
+      background: var(--background-color);
+      margin-bottom: 20px;
     }
-    section.page-section:not(:first-of-type) {
-      border-top: 1px solid #ddd;
-      padding-top: 30px;
-      margin-top: 30px;
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
     }
     .section-title {
-      font-size: 2rem;
-      margin-bottom: 10px;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
       text-align: center;
+      color: var(--primary-color);
     }
     
-    /* Hero Section (Home) with container for proper alignment */
+    /* Hero Section */
     .hero {
-      background-color: var(--background-color);
-      color: var(--primary-color);
-      padding: 80px 20px 50px;
-    }
-    .hero .container {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
     }
-    .hero .profile-photo {
-      flex-shrink: 0;
-      width: 200px;
-      height: 200px;
-      position: relative;
+    .profile-photo {
+      flex: 0 0 150px;
+      width: 150px;
+      height: 150px;
     }
-    .hero .profile-photo img {
+    .profile-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
     }
-    .hero .hero-content {
-      flex: 2;
+    .hero-content {
+      flex: 1;
       text-align: center;
-      margin: 10px;
     }
-    .hero .hero-content h1 { font-size: 2.5rem; margin-bottom: 10px; }
-    .hero .hero-content p { font-size: 1.2rem; margin-bottom: 10px; }
-    .hero .education {
-      flex: 2;
-      text-align: left;
-      margin: 10px;
-      min-width: 350px; /* Ensure education text fits in one line */
+    .hero-content h1 { font-size: 2rem; margin: 0; }
+    .hero-content p { font-size: 1rem; margin: 5px 0 0; }
+    .education {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 10px;
     }
-    .hero .education h3 { font-size: 1.5rem; margin-bottom: 10px; }
-    
-    /* General container for inner sections */
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .education p { margin: 5px 0; }
     
     /* About Section */
-    .about .intro, .about .description {
+    .about .intro,
+    .about .description {
       max-width: 800px;
-      margin: 10px auto;
+      margin: 0 auto 15px;
       text-align: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
     .about-details {
       display: flex;
-      gap: 40px;
-      justify-content: center;
       flex-wrap: wrap;
-      margin-top: 10px;
+      gap: 20px;
+      justify-content: center;
     }
     .about-details > div {
-      flex: 1;
-      min-width: 300px;
+      flex: 1 1 300px;
       background: #fff;
-      padding: 20px;
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 0.9rem;
     }
-    .about-details h3 { margin-bottom: 10px; }
-    .about-details ul { text-align: left; padding-left: 20px; }
     
     /* Projects Section */
-    .projects .projects-grid {
+    .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
     }
-    .projects .project-card {
-      background-color: #fff;
-      padding: 20px;
+    .project-card {
+      background: #fff;
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transition: var(--transition);
     }
-    .projects .project-card:hover { transform: translateY(-5px); }
-    .projects .project-card h3 { margin: 15px 0; }
-    .projects .project-card p { margin-bottom: 15px; }
-    .projects .project-card .project-skills { margin-bottom: 10px; }
-    .projects .project-card .project-link {
+    .project-card:hover { transform: translateY(-3px); }
+    .project-card h3 {
+      margin: 10px 0;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+    .project-card p { font-size: 0.9rem; margin: 5px 0; }
+    .project-skills { font-size: 0.8rem; margin-bottom: 10px; }
+    .project-link {
+      font-size: 0.9rem;
       color: var(--primary-color);
       text-decoration: none;
-      font-weight: 500;
       transition: var(--transition);
     }
-    .projects .project-card .project-link:hover { color: var(--accent-color); }
+    .project-link:hover { color: var(--accent-color); }
     
     /* Skills Section */
-    .skills .skills-grid {
+    .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
       text-align: center;
     }
-    .skills .skills-grid div {
-      background-color: #fff;
-      padding: 20px;
+    .skills-grid div {
+      background: #fff;
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transition: var(--transition);
+      font-size: 0.9rem;
     }
-    .skills .skills-grid div:hover { transform: translateY(-5px); }
+    .skills-grid div:hover { transform: translateY(-3px); }
     
     /* Services Section */
-    .services .services-grid {
+    .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
       text-align: center;
-      margin-top: 10px;
     }
-    .services .service-card {
-      background-color: #fff;
-      padding: 20px;
+    .service-card {
+      background: #fff;
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transition: var(--transition);
+      font-size: 0.9rem;
     }
-    .services .service-card:hover { transform: translateY(-5px); }
-    .services .service-card i { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary-color); }
-    .services .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-    .services .service-card p { font-size: 0.95rem; color: var(--secondary-color); }
+    .service-card:hover { transform: translateY(-3px); }
+    .service-card i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
     
-    /* Quick Links Section */
-    .links {
-      background-color: #fff;
-      padding: 50px 20px;
-    }
-    .links .links-container {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .links .links-container h2 { font-size: 2rem; margin-bottom: 20px; }
-    .links .links-container a {
+    /* Quick Links */
+    .links-container { text-align: center; }
+    .links-container a {
       display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background-color: var(--primary-color);
+      margin: 5px;
+      padding: 8px 16px;
+      background: var(--primary-color);
       color: #fff;
       border-radius: 4px;
       text-decoration: none;
       transition: var(--transition);
+      font-size: 0.9rem;
     }
-    .links .links-container a:hover { background-color: var(--accent-color); }
+    .links-container a:hover { background: var(--accent-color); }
     
-    /* Contact Modal (Pop-Up Contact Form) */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 600px;
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      color: var(--primary-color);
-      font-size: 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .modal-close:hover { color: var(--accent-color); }
-    .modal-content h2 { margin-bottom: 15px; }
-    .modal-content p { font-size: 0.95rem; margin-bottom: 10px; line-height: 1.5; }
-    .modal-content form label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    .modal-content form input,
-    .modal-content form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .modal-content form button {
-      background-color: var(--primary-color);
-      color: #fff;
-      border: none;
-      padding: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .modal-content form button:hover { background-color: var(--accent-color); }
-    
-    /* Footer: Simple white background with dark blue text */
+    /* Footer */
     footer {
-      background-color: var(--background-color);
+      background: var(--background-color);
       color: var(--primary-color);
       text-align: center;
-      padding: 20px 0;
-      display: none;
+      padding: 15px 20px;
       border-top: 1px solid #ddd;
+      font-size: 0.8rem;
     }
     footer .social-links a {
       color: var(--primary-color);
-      margin: 0 10px;
-      font-size: 1.5rem;
+      margin: 0 8px;
+      font-size: 1.3rem;
       transition: var(--transition);
     }
     footer .social-links a:hover { color: var(--accent-color); }
-    .footer-links {
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
     .footer-links a {
       color: var(--primary-color);
       text-decoration: underline;
-      margin: 0 5px;
+      margin: 0 4px;
+      font-size: 0.8rem;
     }
-    .footer-links a:hover { color: var(--accent-color); }
     
+    /* Back-to-top Button */
     .back-to-top {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: var(--primary-color);
+      background: var(--primary-color);
       color: #fff;
-      padding: 10px 15px;
+      padding: 8px 12px;
       border-radius: 50%;
       cursor: pointer;
       transition: var(--transition);
       display: none;
     }
-    .back-to-top:hover { background-color: var(--accent-color); }
+    .back-to-top:hover { background: var(--accent-color); }
     
     @media (max-width: 768px) {
       header nav { flex-direction: column; }
-      .nav-links {
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background: var(--background-color);
-        flex-direction: column;
-        width: 200px;
-        display: none;
-      }
-      .nav-links.active { display: flex; }
-      .nav-links li { margin: 10px 0; }
+      .nav-links { flex-direction: column; gap: 10px; margin-top: 10px; }
       .hamburger { display: flex; }
-      .hero { padding: 80px 20px 30px; flex-direction: column; }
-      .hero .profile-photo, .education { margin: 20px 0; }
-      .about-details, .how-i-work, .services .services-grid, .skills .skills-grid, .projects .projects-grid {
-        grid-template-columns: 1fr;
-      }
+      .hero { flex-direction: column; }
+      .about-details { flex-direction: column; }
+    }
+    
+    /* Modal Styles */
+    .modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 2000; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0,0,0,0.5); 
+      justify-content: center; 
+      align-items: center; 
+      padding: 20px;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      background: #fff;
+      position: relative;
+      border-radius: 8px;
+    }
+    /* Increase modal width on larger screens */
+    @media (min-width: 768px) {
+      .modal-content { max-width: 600px; }
     }
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <div class="logo">
-        <a href="#hero">Pharaoh</a>
-      </div>
+      <div class="logo"><a href="#hero">Pharaoh</a></div>
       <ul class="nav-links">
-        <!-- Rearranged header links order -->
         <li><a href="#hero" class="nav-link">Home</a></li>
-        <li><a href="#about" class="nav-link">About Me</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#projects" class="nav-link">Projects</a></li>
         <li><a href="#skills" class="nav-link">Skills</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#links" class="nav-link">Quick Links</a></li>
-        <!-- Contact link triggers pop-up modal -->
+        <li><a href="#links" class="nav-link">Links</a></li>
         <li><a href="#" id="contact-link" class="nav-link">Contact</a></li>
       </ul>
       <div class="hamburger">
@@ -422,128 +346,92 @@
     </nav>
   </header>
   
-  <!-- Main Content Wrapper -->
   <main class="main-content">
-    <!-- Home (Hero) Section -->
-    <section class="hero page-section" id="hero">
-      <div class="container">
-        <div class="profile-photo">
-          <img src="images/pharaoh-photo.jpg" alt="Pharaoh Kipkirui Chirchir" />
-        </div>
-        <div class="hero-content">
-          <h1>Pharaoh Kipkirui Chirchir</h1>
-          <p>Professional Data Analyst | BI Specialist | ML Expert | Tech Innovator</p>
-        </div>
-        <div class="education">
-          <h3>Education</h3>
-          <p><strong>Master of Science in Data Analytics</strong><br>Nexford University | Nov 2023 – Dec 2024</p>
-          <p><strong>Bachelor of Economics and Statistics</strong><br>Chuka University | Sep 2012 – Nov 2016</p>
-        </div>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="profile-photo">
+        <img src="images/pharaoh-photo.jpg" alt="Pharaoh Kipkirui Chirchir">
+      </div>
+      <div class="hero-content">
+        <h1>Pharaoh Kipkirui Chirchir</h1>
+        <p>Data Analyst | BI Specialist | ML &amp; AI Innovator</p>
+      </div>
+      <div class="education">
+        <p><strong>MSc in Data Analytics</strong> – Nexford University (Nov 2023 – Dec 2024)</p>
+        <p><strong>Bachelor in Economics &amp; Stats</strong> – Chuka University (Sep 2012 – Nov 2016)</p>
       </div>
     </section>
     
-    <!-- About Me Section -->
-    <section class="about page-section" id="about">
+    <!-- About Section -->
+    <section class="about" id="about">
       <div class="container">
         <h2 class="section-title">About Me</h2>
-        <p class="intro"><Data Analyst | Turning Numbers into Clear, Actionable Insights</p>
+        <p class="intro">Experienced Data Analyst turning raw data into actionable insights.</p>
         <p class="description">
-          With over seven years of experience, I transform complex datasets into strategic insights. Whether it’s identifying trends, creating compelling dashboards, or ensuring data security, I bring clarity and professionalism to every project.
+          With over seven years in the field, I blend technical expertise with creative problem-solving to drive strategic decisions. My diverse skills span data cleaning, advanced analytics, dashboard design, machine learning, and more—empowering businesses to harness the full potential of their data.
         </p>
         <div class="about-details">
-          <div class="what-i-do">
-            <h3>What I Do</h3>
+          <div>
+            <h3>Data Mastery</h3>
             <ul>
-              <li>Clean and organize data for analysis</li>
-              <li>Create dashboards and reports that are easy to understand</li>
-              <li>Identify trends that drive business growth</li>
-              <li>Develop data-driven solutions for strategic decision-making</li>
+              <li>Data Cleaning &amp; Transformation</li>
+              <li>Statistical Analysis</li>
+              <li>Predictive Modeling</li>
+              <li>Real-Time Insights</li>
             </ul>
           </div>
-          <div class="data-safe">
-            <h3>Keeping Data Safe</h3>
-            <p>I ensure every project adheres to strict data security standards by:</p>
+          <div>
+            <h3>Visual Storytelling</h3>
             <ul>
-              <li>Implementing clear policies for data handling</li>
-              <li>Enforcing access control for sensitive information</li>
-              <li>Conducting regular security audits</li>
-              <li>Anonymizing data when required</li>
-              <li>Educating teams on best practices</li>
+              <li>Interactive Dashboards</li>
+              <li>Data Visualization</li>
+              <li>Reporting &amp; Analysis</li>
+              <li>User-Centric Design</li>
             </ul>
-          </div>
-        </div>
-        <!-- How I Work Section -->
-        <div class="how-i-work">
-          <h3>How I Work</h3>
-          <div class="expertise">
-            <div class="expertise-item">
-              <h4>Making Data Clear</h4>
-              <p>
-                I create dashboards and reports that are easy to read and use. Whether it’s in Power BI, Tableau, Python, SQL, or Excel, I ensure everyone can understand the data’s story.
-              </p>
-            </div>
-            <div class="expertise-item">
-              <h4>Solving Problems with Data</h4>
-              <p>
-                I dig into data to find precise answers. When analyzing sales data, I integrate customer feedback and sentiment analysis to identify improvement areas.
-              </p>
-            </div>
-            <div class="expertise-item">
-              <h4>Keeping Data Organized</h4>
-              <p>
-                I establish systems to maintain data accuracy and accessibility, including automated workflows for cleaning and organization.
-              </p>
-            </div>
-            <div class="expertise-item">
-              <h4>Machine Learning for Decision-making</h4>
-              <p>
-                I build predictive models that help companies anticipate trends and challenges, empowering proactive, data-driven decisions.
-              </p>
-            </div>
           </div>
         </div>
       </div>
     </section>
     
     <!-- Projects Section -->
-    <section class="projects page-section" id="projects">
+    <section class="projects" id="projects">
       <div class="container">
         <h2 class="section-title">Projects</h2>
         <div class="projects-grid">
           <div class="project-card">
-            <h3>The Rise of Artificial Intelligence: Trends, Impact and Insights</h3>
-            <p>An in-depth analysis of AI’s global growth and its impact on employment opportunities.</p>
-            <p class="project-skills"><strong>Skills Used:</strong> Python, Pandas, Data Visualization, Statistical Analysis</p>
+            <h3>AI Trends &amp; Insights</h3>
+            <p>Analysis of global AI growth and its impact on industries.</p>
+            <p class="project-skills"><strong>Skills:</strong> Python, Pandas, Data Viz, Stats</p>
             <a href="https://github.com/Chirchirp/The-Rise-of-Artificial-Intelligence-Trends-Impact-and-Insights.ipynb" target="_blank" class="project-link">View Project</a>
           </div>
           <div class="project-card">
-            <h3>Beats by Dre: Consumer Insights Data Analytics</h3>
-            <p>Customer segmentation and market trend analysis using interactive visualizations.</p>
-            <p class="project-skills"><strong>Skills Used:</strong> Python, Pandas, Matplotlib, Data Analysis</p>
+            <h3>Consumer Insights for Beats</h3>
+            <p>Segmentation and trend analysis with interactive visualizations.</p>
+            <p class="project-skills"><strong>Skills:</strong> Python, Pandas, Matplotlib</p>
             <a href="https://colab.research.google.com/drive/1XNxkdTQ6K0fG2OkM0QLvi35e9zQ_1ODe?usp=sharing" target="_blank" class="project-link">View Project</a>
           </div>
           <div class="project-card">
-            <h3>Customer Churn Model</h3>
-            <p>Deployed an XGBoost model with 89% accuracy and a supporting Flask API for customer attrition prediction.</p>
-            <p class="project-skills"><strong>Skills Used:</strong> Python, XGBoost, Flask, Data Modeling</p>
+            <h3>Customer Churn Prediction</h3>
+            <p>XGBoost model with 89% accuracy and a Flask API for deployment.</p>
+            <p class="project-skills"><strong>Skills:</strong> Python, XGBoost, Flask</p>
             <a href="https://github.com/Chirchirp/Final-Project--Model-Deployment" target="_blank" class="project-link">View Project</a>
           </div>
           <div class="project-card">
-            <h3>Credit Card Fraud Detection</h3>
-            <p>Implemented ML models to identify fraudulent transactions with a 97% recall rate.</p>
-            <p class="project-skills"><strong>Skills Used:</strong> Python, Logistic Regression, Isolation Forest, ML</p>
+            <h3>Fraud Detection Model</h3>
+            <p>ML models identifying fraudulent transactions with a 97% recall rate.</p>
+            <p class="project-skills"><strong>Skills:</strong> Python, Logistic Regression, Isolation Forest</p>
             <a href="https://colab.research.google.com/drive/1ISRR1X1zJjAfEP9fE-_q_JMjLkc1YIa3?usp=sharing" target="_blank" class="project-link">View Project</a>
           </div>
           <div class="project-card">
-            <h3>HR Analytics with Power BI</h3>
-            <p>Developed an interactive Power BI dashboard tracking key HR metrics and attrition reasons.</p>
-            <p class="project-skills"><strong>Skills Used:</strong> Power BI, DAX, Data Visualization</p>
+            <h3>HR Analytics Dashboard</h3>
+            <p>Interactive Power BI dashboard tracking key HR metrics.</p>
+            <p class="project-skills"><strong>Skills:</strong> Power BI, DAX</p>
             <a href="https://github.com/Chirchirp/Power-BI-Project-on-Employee-Attrition" target="_blank" class="project-link">View Project</a>
           </div>
           <div class="project-card">
-            <h3>SQL Data Mining &amp; Analysis</h3>
-            <p>Built complex SQL queries for data cleaning, transformation, and in-depth reporting.</p>
-            <p class="project-skills"><strong>Skills Used:</strong> SQL, Data Mining, Data Transformation</p>
+            <h3>SQL Data Mining</h3>
+            <p>Complex queries for cleaning, transforming and reporting data.</p>
+            <p class="project-skills"><strong>Skills:</strong> SQL, Data Mining</p>
             <a href="https://github.com/Chirchirp/Data-Analysis-with-SSMS" target="_blank" class="project-link">View Project</a>
           </div>
         </div>
@@ -551,9 +439,9 @@
     </section>
     
     <!-- Skills Section -->
-    <section class="skills page-section" id="skills">
+    <section class="skills" id="skills">
       <div class="container">
-        <h2 class="section-title">Skills</h2>
+        <h2 class="section-title">Technical Skills</h2>
         <div class="skills-grid">
           <div>
             <h3>Data Analysis</h3>
@@ -564,63 +452,62 @@
             <p>Tableau, Power BI, D3.js</p>
           </div>
           <div>
-            <h3>Web Development</h3>
-            <p>HTML, CSS, JavaScript</p>
-          </div>
-          <div>
             <h3>Machine Learning</h3>
             <p>Scikit-learn, TensorFlow, Keras</p>
+          </div>
+          <div>
+            <h3>BI &amp; Reporting</h3>
+            <p>Power BI, Excel, Looker</p>
+          </div>
+          <div>
+            <h3>Web Development</h3>
+            <p>HTML, CSS, JavaScript</p>
           </div>
         </div>
       </div>
     </section>
     
     <!-- Services Section -->
-    <section class="services page-section" id="services">
+    <section class="services" id="services">
       <div class="container">
         <h2 class="section-title">Services</h2>
         <div class="services-grid">
           <div class="service-card">
             <i class="fas fa-chart-line"></i>
             <h3>Data Analysis</h3>
-            <p>I analyze complex datasets to reveal actionable insights.</p>
+            <p>Transforming complex datasets into clear insights.</p>
           </div>
           <div class="service-card">
             <i class="fas fa-chart-pie"></i>
             <h3>Data Visualization</h3>
-            <p>I design interactive and insightful visuals.</p>
+            <p>Interactive dashboards and compelling visuals.</p>
           </div>
           <div class="service-card">
             <i class="fas fa-laptop-code"></i>
-            <h3>Web Development</h3>
-            <p>I create custom portfolio web pages.</p>
+            <h3>BI Solutions</h3>
+            <p>Customized reporting tools and automated workflows.</p>
           </div>
           <div class="service-card">
             <i class="fas fa-file-alt"></i>
-            <h3>Reports Formulation</h3>
-            <p>I build detailed, clear reports.</p>
-          </div>
-          <div class="service-card">
-            <i class="fas fa-file-powerpoint"></i>
-            <h3>PowerPoint Presentations</h3>
-            <p>I design visually engaging presentations.</p>
+            <h3>Predictive Modeling</h3>
+            <p>Advanced ML solutions for forecasting trends.</p>
           </div>
         </div>
       </div>
     </section>
     
     <!-- Quick Links Section -->
-    <section class="links page-section" id="links">
-      <div class="links-container">
+    <section class="links" id="links">
+      <div class="container links-container">
         <h2 class="section-title">Quick Links</h2>
         <a href="https://chirchirp.github.io/resume/" target="_blank">Resume</a>
         <a href="https://chirchirp.github.io/Data-Analyst-Blog/#" target="_blank">Blog</a>
         <a href="https://www.linkedin.com/in/pharaoh-chirchir-m-sc-0b600b138/details/certifications/" target="_blank">Certifications</a>
       </div>
     </section>
+    
   </main>
   
-  <!-- Footer (Visible when scrolled near bottom) -->
   <footer>
     <p>&copy; <span id="year"></span> Pharaoh Kipkirui Chirchir. All rights reserved.</p>
     <div class="social-links">
@@ -629,8 +516,8 @@
       <a href="https://wa.me/254725674081" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
     <div class="footer-links">
-      <a href="#" id="terms-link">Terms &amp; Conditions</a> | 
-      <a href="#" id="privacy-link">Privacy Policy</a>
+      <a href="#" id="terms-link">Terms</a> | 
+      <a href="#" id="privacy-link">Privacy</a>
     </div>
   </footer>
   
@@ -638,165 +525,92 @@
     <i class="fas fa-chevron-up"></i>
   </div>
   
-  <!-- Contact Modal (Pop-Up) -->
+  <!-- Modified Contact Modal -->
   <div id="contact-modal" class="modal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
-      <h2>Contact</h2>
-      <form action="https://formspree.io/f/yourformid" method="POST">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required />
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-        <button type="submit">Send Message</button>
+      <h2 style="margin-bottom: 20px; color: var(--primary-color); text-align: center;">Get in Touch</h2>
+      <form action="https://formspree.io/f/yourformid" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; flex-direction: column;">
+          <label for="name" style="margin-bottom: 5px; font-weight: 600;">Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div style="display: flex; flex-direction: column;">
+          <label for="email" style="margin-bottom: 5px; font-weight: 600;">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div style="display: flex; flex-direction: column;">
+          <label for="message" style="margin-bottom: 5px; font-weight: 600;">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Type your message here..." required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+        </div>
+        <button type="submit" style="background: var(--primary-color); color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: 600; cursor: pointer; transition: var(--transition);">Send Message</button>
       </form>
     </div>
   </div>
   
-  <!-- Terms & Privacy Modals -->
-  <div id="terms-modal" class="modal">
+  <!-- Terms Modal -->
+  <div id="terms-modal" class="modal" style="display: none;">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
       <h2>Terms and Conditions</h2>
-      <p>
-        Welcome to Pharaoh Kipkirui Chirchir’s Portfolio website. By accessing and using this website, you agree to comply with and be bound by these Terms and Conditions. All content is provided for informational purposes only, and unauthorized reproduction or distribution is prohibited. We reserve the right to modify these terms at any time without notice.
-      </p>
-      <p>
-        Use of this website is at your own risk. We make no warranties regarding the accuracy or completeness of the information provided, and shall not be liable for any damages arising from its use.
-      </p>
+      <p>By using this website, you agree to these terms. Unauthorized reproduction of content is prohibited.</p>
     </div>
   </div>
   
-  <div id="privacy-modal" class="modal">
+  <!-- Privacy Modal -->
+  <div id="privacy-modal" class="modal" style="display: none;">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
       <h2>Privacy Policy</h2>
-      <p>
-        Your privacy is important. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website. We do not share your data with third parties without your consent, except as required by law.
-      </p>
-      <p>
-        By using this website, you agree to the collection and use of information in accordance with this policy. If you have any questions regarding our privacy practices, please contact us.
-      </p>
+      <p>Your privacy is important. We do not share your data with third parties without consent.</p>
     </div>
   </div>
   
   <script>
-    // Flag for full-page view (all sections visible)
-    let fullPageView = true;
-    
-    // Show all sections (full-page view)
-    function showAllSections() {
-      document.querySelectorAll('section.page-section').forEach(sec => sec.style.display = 'block');
-      fullPageView = true;
-      checkFooterVisibility();
-      document.querySelector('#hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    
-    // Show only the target section and scroll it into view from the top
-    function showOnlySection(target) {
-      document.querySelectorAll('section.page-section').forEach(sec => sec.style.display = 'none');
-      const targetSection = document.querySelector(target);
-      if (targetSection) {
-        targetSection.style.display = 'block';
-        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      fullPageView = false;
-      checkFooterVisibility();
-    }
-    
-    // Navigation click handler – Home always shows full-page view
-    document.querySelectorAll('nav a.nav-link').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = this.getAttribute('href');
-        // Close mobile nav if open
-        document.querySelector('.nav-links').classList.remove('active');
-        if(target === "#hero") {
-          showAllSections();
-        } else {
-          showOnlySection(target);
-        }
-      });
-    });
-    
-    // Update nav link highlight based on scroll (only in full-page view)
-    window.addEventListener('scroll', () => {
-      if(fullPageView) {
-        const sections = document.querySelectorAll('section.page-section');
-        const scrollPos = window.scrollY + 80; // offset for fixed header
-        sections.forEach(section => {
-          if(section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
-            document.querySelectorAll('nav a.nav-link').forEach(link => link.classList.remove('active'));
-            const id = section.getAttribute('id');
-            const activeLink = document.querySelector(`nav a.nav-link[href="#${id}"]`);
-            if(activeLink) activeLink.classList.add('active');
-          }
-        });
-      }
-      checkFooterVisibility();
-    });
-    
-    // Check footer visibility (display only when near the bottom)
-    function checkFooterVisibility() {
-      const mainContent = document.querySelector('.main-content');
-      const footer = document.querySelector('footer');
-      if(mainContent.scrollHeight <= mainContent.clientHeight ||
-         mainContent.scrollHeight - mainContent.scrollTop <= mainContent.clientHeight + 50) {
-        footer.style.display = 'block';
-      } else {
-        footer.style.display = 'none';
-      }
-    }
-    
-    // Hamburger menu toggle for mobile
+    // Mobile nav toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
     
-    // Back-to-top button functionality
-    const backToTopButton = document.getElementById('back-to-top');
+    // Back-to-top functionality
+    const backToTop = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => {
-      backToTopButton.style.display = (window.scrollY > 300) ? 'block' : 'none';
+      backToTop.style.display = (window.scrollY > 300) ? 'block' : 'none';
     });
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     
-    // Modal event listeners for Contact, Terms, and Privacy
-    const contactButton = document.getElementById('contact-link');
-    const contactModal = document.getElementById('contact-modal');
-    const termsLink = document.getElementById('terms-link');
-    const privacyLink = document.getElementById('privacy-link');
-    const termsModal = document.getElementById('terms-modal');
-    const privacyModal = document.getElementById('privacy-modal');
-    document.querySelectorAll('.modal-close').forEach(button => {
-      button.addEventListener('click', () => {
-        button.closest('.modal').style.display = 'none';
+    // Modal functionality using the "active" class
+    const openModal = (id) => {
+      document.getElementById(id).classList.add('active');
+    };
+    const closeModal = (modal) => {
+      modal.classList.remove('active');
+    };
+    
+    document.querySelectorAll('.modal-close').forEach(btn => {
+      btn.addEventListener('click', () => {
+        closeModal(btn.closest('.modal'));
       });
     });
-    window.addEventListener('click', e => {
-      if(e.target.classList.contains('modal')) e.target.style.display = 'none';
+    window.addEventListener('click', (e) => {
+      if(e.target.classList.contains('modal')) { closeModal(e.target); }
     });
-    contactButton.addEventListener('click', e => {
+    
+    document.getElementById('contact-link').addEventListener('click', (e) => {
       e.preventDefault();
-      contactModal.style.display = 'block';
+      openModal('contact-modal');
     });
-    termsLink.addEventListener('click', e => {
+    document.getElementById('terms-link').addEventListener('click', (e) => {
       e.preventDefault();
-      termsModal.style.display = 'block';
+      openModal('terms-modal');
     });
-    privacyLink.addEventListener('click', e => {
+    document.getElementById('privacy-link').addEventListener('click', (e) => {
       e.preventDefault();
-      privacyModal.style.display = 'block';
+      openModal('privacy-modal');
     });
     
     // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
-    
-    // Initial footer visibility check
-    checkFooterVisibility();
   </script>
 </body>
 </html>
