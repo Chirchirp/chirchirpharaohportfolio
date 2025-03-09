@@ -26,16 +26,49 @@
     *, *::before, *::after { box-sizing: border-box; }
     
     :root {
+      /* Default (White) Theme Variables */
       --primary-color: #003366;
       --accent-color: #00509e;
       --background-color: #ffffff;
       --body-bg: #f9f9f9;
       --text-color: #343a40;
+      --tile-bg: #fff;
       --transition: all 0.3s ease;
       --section-padding: 30px;
       --container-max: 1000px;
       --header-height: 60px;
       --scroll-offset: 80px;
+    }
+    
+    /* White Theme (Default) */
+    .white-theme {
+      --primary-color: #003366;
+      --accent-color: #00509e;
+      --background-color: #ffffff;
+      --body-bg: #f9f9f9;
+      --text-color: #343a40;
+      --tile-bg: #fff;
+    }
+    
+    /* Dark Theme - tiles are now dark too */
+    .dark-theme {
+      --primary-color: #ffffff;
+      --accent-color: #ffcc00;
+      --background-color: #222222;
+      --body-bg: #121212;
+      --text-color: #f1f1f1;
+      --tile-bg: #333333;
+    }
+    
+    /* Pastel Theme using Turquoise Blue + Cornflower Blue + Neon Blue Pastel */
+    .pastel-theme {
+      /* Using Cornflower Blue as primary, Neon Blue pastel as accent, and light turquoise for backgrounds */
+      --primary-color: #6495ED;    /* Cornflower Blue */
+      --accent-color: #A3DBFF;     /* Neon Blue Pastel */
+      --background-color: #B2EBF2; /* Light Turquoise Pastel */
+      --body-bg: #E0F7FA;          /* Lighter cyan pastel */
+      --text-color: #555555;
+      --tile-bg: #DCEFFB;          /* Very light blue for tiles */
     }
     
     body {
@@ -88,6 +121,13 @@
     .nav-links a:hover, .nav-links a.active {
       color: var(--accent-color);
       border-bottom: 2px solid var(--accent-color);
+    }
+    /* Theme toggle button */
+    #theme-toggle {
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-right: 10px;
+      color: var(--primary-color);
     }
     .hamburger {
       display: none;
@@ -196,7 +236,7 @@
     }
     .about-details > div {
       flex: 1 1 300px;
-      background: #fff;
+      background: var(--tile-bg);
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -210,7 +250,7 @@
       gap: 15px;
     }
     .project-card {
-      background: #fff;
+      background: var(--tile-bg);
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -240,7 +280,7 @@
       text-align: center;
     }
     .skills-grid div {
-      background: #fff;
+      background: var(--tile-bg);
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -257,7 +297,7 @@
       text-align: center;
     }
     .service-card {
-      background: #fff;
+      background: var(--tile-bg);
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -343,7 +383,7 @@
       width: 100%;
       max-width: 500px;
       padding: 20px;
-      background: #fff;
+      background: var(--tile-bg);
       position: relative;
       border-radius: 8px;
     }
@@ -365,7 +405,7 @@
     }
   </style>
 </head>
-<body>
+<body class="white-theme">
   <header>
     <nav>
       <div class="logo"><a href="#hero">Pharaoh</a></div>
@@ -378,6 +418,8 @@
         <li><a href="#links" class="nav-link">Links</a></li>
         <li><a href="#" id="contact-link" class="nav-link">Contact</a></li>
       </ul>
+      <!-- Theme toggle button -->
+      <div id="theme-toggle">Theme: White</div>
       <div class="hamburger">
         <span></span>
         <span></span>
@@ -514,7 +556,7 @@
           <div class="service-card">
             <i class="fas fa-chart-line"></i>
             <h3>Data Analysis</h3>
-            <p>I Transforming complex datasets into clear insights for decision-making.</p>
+            <p>I transform complex datasets into clear insights for decision-making.</p>
           </div>
           <div class="service-card">
             <i class="fas fa-chart-pie"></i>
@@ -651,6 +693,18 @@
     document.getElementById('privacy-link').addEventListener('click', (e) => {
       e.preventDefault();
       openModal('privacy-modal');
+    });
+    
+    // Theme Toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const themes = ['white', 'dark', 'pastel'];
+    let currentThemeIndex = 0; // default white
+    
+    themeToggle.addEventListener('click', () => {
+      currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+      document.body.classList.remove('white-theme', 'dark-theme', 'pastel-theme');
+      document.body.classList.add(`${themes[currentThemeIndex]}-theme`);
+      themeToggle.textContent = 'Theme: ' + themes[currentThemeIndex].charAt(0).toUpperCase() + themes[currentThemeIndex].slice(1);
     });
     
     // Set current year in footer
