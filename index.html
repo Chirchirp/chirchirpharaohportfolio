@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <!-- Mobile Optimization -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="MobileOptimized" content="320" />
-  <meta name="theme-color" content="#003366" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#003366" />
   <meta name="description" content="Professional Portfolio of Pharaoh Kipkirui Chirchir" />
   <title>Pharaoh Kipkirui Chirchir - Data Analyst Portfolio</title>
   <link rel="icon" href="favicon.ico" />
@@ -29,6 +31,7 @@
       --transition: all 0.3s ease;
       --section-padding: 30px;
       --container-max: 1000px;
+      --scroll-offset: 80px;
     }
     
     body {
@@ -75,6 +78,7 @@
       text-decoration: none;
       font-weight: 500;
       transition: var(--transition);
+      padding: 8px 10px;
     }
     .nav-links a:hover, .nav-links a.active {
       color: var(--accent-color);
@@ -84,6 +88,7 @@
       display: none;
       flex-direction: column;
       cursor: pointer;
+      padding: 10px;
     }
     .hamburger span {
       height: 3px;
@@ -98,7 +103,8 @@
     section {
       padding: var(--section-padding) 20px;
       background: var(--background-color);
-      margin-bottom: 10px;
+      margin-bottom: 23px;
+      scroll-margin-top: var(--scroll-offset);
     }
     .container {
       max-width: var(--container-max);
@@ -111,41 +117,44 @@
       color: var(--primary-color);
     }
     
-    /* Hero Section */
+    /* Hero Section - Updated Layout */
     .hero {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-evenly;
       align-items: center;
-      justify-content: center;
-      gap: 20px;
-      padding: 40px 20px;
+      padding: var(--section-padding) 20px;
       margin: 0 auto;
       max-width: var(--container-max);
     }
+    /* Ensure equal distribution for all hero children */
+    .hero > * {
+      flex: 1 1 300px;
+      text-align: center;
+      margin: 10px;
+    }
     .profile-photo {
-      flex: 0 0 150px;
-      width: 150px;
-      height: 150px;
+      max-width: 150px;
       margin-top: 20px;
     }
     .profile-photo img {
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: cover;
       border-radius: 50%;
     }
-    .hero-content {
-      flex: 1;
-      text-align: center;
-    }
     .hero-content h1 { font-size: 2rem; margin: 0; }
     .hero-content p { font-size: 1rem; margin: 5px 0 0; }
-    .education {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-top: 10px;
-    }
     .education p { margin: 5px 0; }
+    
+    /* Separator for Hero Section */
+    .hero-separator {
+      width: 0%;
+      height: 0.05px;
+      background-color: var(--background-color);
+      border-top: 0.005px solid var(--primary-color);
+      margin: 20px 0;
+    }
     
     /* About Section */
     .about .intro,
@@ -297,6 +306,7 @@
       .hamburger { display: flex; }
       .hero { flex-direction: column; }
       .about-details { flex-direction: column; }
+      .nav-links a { font-size: 1.1rem; padding: 10px 15px; }
     }
     
     /* Modal Styles */
@@ -322,9 +332,21 @@
       position: relative;
       border-radius: 8px;
     }
-    /* Increase modal width on larger screens */
     @media (min-width: 768px) {
       .modal-content { max-width: 600px; }
+    }
+    
+    /* Modal Close Button */
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 2rem;
+      color: var(--accent-color);
+      cursor: pointer;
+    }
+    .modal-close:hover {
+      color: var(--primary-color);
     }
   </style>
 </head>
@@ -364,6 +386,9 @@
         <p><strong>Bachelor in Economics &amp; Stats</strong> – Chuka University (Sep 2012 – Nov 2016)</p>
       </div>
     </section>
+    
+    <!-- Hero Separator -->
+    <div class="hero-separator"></div>
     
     <!-- About Section -->
     <section class="about" id="about">
